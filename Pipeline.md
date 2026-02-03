@@ -3,9 +3,11 @@
 Load parallel
 
 `module load parallel/20190222/intel-19.0.5`
+
 Set java parameters
 
 `java -Xmx192g`
+
 Activate conda 
 
 `source /home/gabby297/miniconda3/etc/profile.d/conda.sh`
@@ -13,9 +15,11 @@ Activate conda
 `conda activate fastqc`
 
 `/home/gabby297/miniconda3/envs/fastqc/bin/fastqc`
+
 Change working directory
 
 `cd /work/gabby297/RNA/`
+
 Use a text file with all your sample names for parallel and run `fastqc`
 
 `cat sample_names_final.txt | parallel --jobs 16 "fastqc {}.fq -o /work/gabby297/RNA/fastqc_final/"`
@@ -50,9 +54,11 @@ Load Star
 
 `module load star/2.7.11b `
 
-IN_DIR="/work/gabby297/RNA/merged_fasta/trimmomatic"
+Define directories
+
+`IN_DIR="/work/gabby297/RNA/merged_fasta/trimmomatic"
 OUT_DIR="/work/gabby297/RNA/merged_fasta/bam_files"
-GENOME="/project/sackettl/HAAM-from-OAAM-ref-genome"
+GENOME="/project/sackettl/HAAM-from-OAAM-ref-genome"`
 
 Make the ouput directory
 
@@ -119,4 +125,15 @@ Run
 --max_memory 180G --CPU 18 \
 --output /work/gabby297/RNA/merged_fasta/trinity/`
 
-## Pipeline in Progress 
+# Use BUSCO to assess alignment
+
+Load busco
+
+`source /home/gabby297/miniconda3/etc/profile.d/conda.sh
+conda activate busco_env`
+
+Run using busco downloaded lineage reference
+
+`busco -i /work/gabby297/RNA/merged_fasta/trinity/Trinity-GG.fasta -l /work/gabby297/RNA/trinity/busco_downloads/lineages/aves_odb10 -o busco_merged -m transcriptome`
+
+## Pipeline in Progress 🏗️
